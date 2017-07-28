@@ -46,6 +46,7 @@ static inline int on_dl_rq(struct sched_dl_entity *dl_se)
 }
 
 static void add_average_bw(struct sched_dl_entity *dl_se, struct dl_rq *dl_rq)
+
 {
 	u64 se_bw = dl_se->dl_bw;
 
@@ -625,7 +626,7 @@ static void update_curr_dl(struct rq *rq)
 		return;
 
 	/* kick cpufreq (see the comment in kernel/sched/sched.h). */
-	cpufreq_update_this_cpu(rq, SCHED_CPUFREQ_DL);
+	cpufreq_update_util(rq, SCHED_CPUFREQ_DL);
 
 	schedstat_set(curr->se.statistics.exec_max,
 		      max(curr->se.statistics.exec_max, delta_exec));
