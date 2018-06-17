@@ -27,6 +27,7 @@ unsigned long boosted_cpu_util(int cpu);
 #define cpufreq_enable_fast_switch(x)
 #define cpufreq_disable_fast_switch(x)
 #define LATENCY_MULTIPLIER			(1000)
+#define SUGOV_KTHREAD_PRIORITY	50
 
 struct sugov_tunables {
 	struct gov_attr_set attr_set;
@@ -563,7 +564,7 @@ static ssize_t iowait_boost_enable_store(struct gov_attr_set *attr_set,
 	struct sugov_tunables *tunables = to_sugov_tunables(attr_set);
 	bool enable;
 
-	if (kstrtobool(buf, &enable))
+	if (strtobool(buf, &enable))
 		return -EINVAL;
 
 	tunables->iowait_boost_enable = enable;
